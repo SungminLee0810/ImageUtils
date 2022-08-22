@@ -33,7 +33,7 @@ def imgfmt_convert(img_path, tgt_path, tgt_fmt='jpg', jpg_qual=95):
 
 
 def PrecisionRecall_Calc(confusion_matrix):
-    """Converts input image format to target image format.
+    """Compute the precision, recall and F1-score from the confusion matrix.
 
         # Arguments
             confusion_matrix: 2D array with shape `[TP, FP, TN, FN]`.
