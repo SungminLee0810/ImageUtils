@@ -30,3 +30,24 @@ def imgfmt_convert(img_path, tgt_path, tgt_fmt='jpg', jpg_qual=95):
         cv2.imwrite(f'{tgt_path}/{img_name}.{tgt_fmt}', img)
 
     return f'{tgt_path}/{img_name}.{tgt_fmt}'
+
+
+def PrecisionRecall_Calc(confusion_matrix):
+    """Converts input image format to target image format.
+
+        # Arguments
+            confusion_matrix: 2D array with shape `[TP, FP, TN, FN]`.
+
+        # Returns
+            results: Dictionary, calculation results.
+                - precision: (TP) / (TP + FP)
+                - recall: (TP) / float(TP + FN)
+                - F1-score: 2 * (precision * recall) / (precision + recall)
+    """
+    results = {}
+    TP, FP, TN, FN = confusion_matrix
+    results['precision'] = (TP) / float(TP + FP)
+    results['recall'] = (TP) / float(TP + FN)
+    results['F1-score'] = 2 * (results['precision'] * results['recall']) / float(
+        results['precision'] + results['recall'])
+    return results
