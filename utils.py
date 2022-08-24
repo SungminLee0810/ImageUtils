@@ -110,6 +110,8 @@ def ExtractPatchFromCOCOJSON(json_path, imgdir_path, patch_shape, margin=0, save
                 patch_labels.append(onehot_template[anno_object['category_id'] - 1])
     output['patch'] = np.array(cropped_patches)
     output['label'] = np.array(patch_labels)
+    if output['patch'].ndim < 4:  # to match output shape `[N, W, H, C]`
+        output['patch'] = np.expand_dims(output['patch'], axis=-1)
     if output_path is not None:
         np.savez(output_path, data=output['patch'], label=output['label'])
     return output
