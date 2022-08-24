@@ -71,10 +71,13 @@ def ExtractPatchFromCOCOJSON(json_path, imgdir_path, patch_shape, margin=0, save
                     If save_img is 'None', no image is saved.
                 output_path: String, a path to save the output as .npz file. (default: None)
                     If save_path is 'None', no output file is saved.
+                    The .npz file has two keys, 'data' and 'label' respectively.
+                    - data: patch images, `[N, W, H, C]`.
+                    - label: onehot encoded labels, `[N x nClass]`.
 
             # Returns
                 output: Dictionary, patch images and labels.
-                - patch: 4D array with shape `[N, W, H, C]`
+                - patch: 4D array with shape `[N, W, H, C]`.
                     - N: The number of patches.
                     - W: Patch width.
                     - H: Patch height.
@@ -87,8 +90,6 @@ def ExtractPatchFromCOCOJSON(json_path, imgdir_path, patch_shape, margin=0, save
         json_object = json.load(f)
     num_class = len(json_object['categories'])
     onehot_template = np.eye(num_class, num_class).astype(np.float32)
-    # num_bboxes = len(json_object['annotations'])
-    # cropped_patches = np.zeros((num_bboxes, height, width,), dtype=np.uint8)
     cropped_patches = []
     patch_labels = []
     for images_object in json_object['images']:
