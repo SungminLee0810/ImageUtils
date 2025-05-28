@@ -25,7 +25,7 @@ def imgfmt_convert(img_path, tgt_path, tgt_fmt='jpg', jpg_qual=95):
 
     img = cv2.imread(img_path)
     img_name = img_path.split('/')[-1].split('.')[0]
-    if tmg_fmt in ['jpg', 'jpeg']:
+    if tgt_fmt in ['jpg', 'jpeg']:
         cv2.imwrite(f'{tgt_path}/{img_name}.{tgt_fmt}', img, params=[cv2.IMWRITE_JPEG_QUALITY, jpg_qual])
     else:
         cv2.imwrite(f'{tgt_path}/{img_name}.{tgt_fmt}', img)
